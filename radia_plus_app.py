@@ -56,9 +56,10 @@ if st.button("Ampliar información sobre este tema con IA"):
             "Esta respuesta ha sido generada por un modelo de inteligencia artificial y no representa necesariamente "
             "la opinión del Servicio de Oncología Radioterápica."
         )
-        st.info(f"{detailed}
+        mensaje_final = f"{detailed}
 
-{aviso}")
+{aviso}"
+        st.info(mensaje_final)
 
 st.markdown("---")
 st.caption("RADIA + © 2025 · Hospital Universitari Arnau de Vilanova – Lleida")
