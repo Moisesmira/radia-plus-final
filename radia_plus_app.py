@@ -36,28 +36,42 @@ class RADIAChatbot:
             }
         }
 
+    def get_categories(self):
+        return list(self.categories.keys())
+
+    def get_questions(self, category):
+        return list(self.categories.get(category, {}).keys())
+
     def get_response(self, category, question):
         return self.categories.get(category, {}).get(question, "Lo siento, no encuentro respuesta para esa pregunta.")
 
+# Crear instancia del chatbot
 radia = RADIAChatbot()
 
-st.write("Selecciona una categoría y una pregunta para obtener una respuesta clara.")
+# Obtener categorías
+categories = radia.get_categories()
+if not categories:
+    st.error("No se pudieron cargar las categorías. Por favor, revisa el contenido del chatbot.")
+else:
+    category = st.selectbox("Categoría", categories)
+    questions = radia.get_questions(category)
 
-category = st.selectbox("Categoría", list(radia.categories.keys()))
-question = st.selectbox("Pregunta", list(radia.categories[category].keys()))
-response = radia.get_response(category, question)
+    if questions:
+        question = st.selectbox("Pregunta", questions)
+        response = radia.get_response(category, question)
+        st.success(f"Respuesta: {response}")
 
-st.success(f"Respuesta: {response}")
-
-if st.button("Ampliar información sobre este tema con IA"):
-    with st.spinner("Consultando..."):
-        detailed = get_detailed_response(question)
-        aviso = (
-            "Esta respuesta ha sido generada por un modelo de inteligencia artificial y no representa necesariamente "
-            "la opinión del Servicio de Oncología Radioterápica."
-        )
-        mensaje_final = detailed + "\n\n" + aviso
-        st.info(mensaje_final)
+        if st.button("Ampliar información sobre este tema con IA"):
+            with st.spinner("Consultando..."):
+                detailed = get_detailed_response(question)
+                aviso = (
+                    "Esta respuesta ha sido generada por un modelo de inteligencia artificial y no representa necesariamente "
+                    "la opinión del Servicio de Oncología Radioterápica."
+                )
+                mensaje_final = detailed + "\n\n" + aviso
+                st.info(mensaje_final)
+    else:
+        st.warning("No hay preguntas disponibles para esta categoría.")
 
 st.markdown("---")
 st.caption("RADIA + © 2025 · Hospital Universitari Arnau de Vilanova – Lleida")
