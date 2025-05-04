@@ -64,13 +64,8 @@ else:
         if st.button("Ampliar información sobre este tema con IA"):
             with st.spinner("Consultando..."):
                 detailed = get_detailed_response(question)
-                aviso = """
-
-
-Esta respuesta ha sido generada por un modelo de inteligencia artificial y no representa necesariamente la opinión del Servicio de Oncología Radioterápica.
-"""
-                mensaje_final = f"{detailed}{aviso}"
-                st.info(mensaje_final)
+                st.info(detailed)
+                st.warning("Esta respuesta ha sido generada por un modelo de inteligencia artificial y no representa necesariamente la opinión del Servicio de Oncología Radioterápica.")
     else:
         st.warning("No hay preguntas disponibles para esta categoría.")
 
