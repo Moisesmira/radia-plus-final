@@ -56,9 +56,7 @@ if st.button("Ampliar información sobre este tema con IA"):
             "Esta respuesta ha sido generada por un modelo de inteligencia artificial y no representa necesariamente "
             "la opinión del Servicio de Oncología Radioterápica."
         )
-        mensaje_final = f"{detailed}
-
-{aviso}"
+        mensaje_final = detailed + "\n\n" + aviso
         st.info(mensaje_final)
 
 st.markdown("---")
